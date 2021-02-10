@@ -39,7 +39,7 @@ def validate_login_user(self, data, user_type):
 
     if not user:    
         raise serializers.ValidationError(message)
-    if user.user_type == user_type:
+    if user.user_type != user_type:
         raise serializers.ValidationError(message)
     data['user'] = user
 
@@ -50,7 +50,8 @@ class UserSerializer(serializers.ModelSerializer):
     """"""
     class Meta:
         model = User
-        fields = ('username', 'password')
+        fields = ('username', 'password', 'user_type',)
+        read_only_fields = ('user_type',)
         extra_kwargs = {'password': {'write_only': True}}
 
 
@@ -94,7 +95,7 @@ class DriverLoginSerializer(serializers.Serializer):
 
     def validate(self, data):
         """"""
-        user_type = 2
+        user_type = 3
         return validate_login_user(self, data, user_type)
 
     def create(self, data):
