@@ -18,7 +18,7 @@ def login_by_user_type(self, request, current_serializer):
         'user': UserSerializer(user).data,
         'token': token
     }
-    return Response(data, status=status.HTTP_201_CREATED)
+    return Response(data, status=status.HTTP_200_OK)
 
 def register_by_user_type(self, request, current_serializer):
     """"""
