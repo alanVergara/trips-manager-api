@@ -11,7 +11,7 @@ from user.permissions import IsPassengerOrAdmin, IsDriverOrAdmin
 
 
 def login_by_user_type(self, request, current_serializer):
-    """"""
+    """Complementary function for manage login by serializer"""
     serializer = current_serializer(data=request.data)
     serializer.is_valid(raise_exception=True)
     user, token = serializer.save()
@@ -23,7 +23,7 @@ def login_by_user_type(self, request, current_serializer):
 
 
 def register_by_user_type(self, request, current_serializer):
-    """"""
+    """Complementary function for manage register by serializer"""
     serializer = current_serializer(data=request.data)
     serializer.is_valid(raise_exception=True)
     user = serializer.save()
@@ -32,7 +32,7 @@ def register_by_user_type(self, request, current_serializer):
 
 
 class PassengerViewSet(viewsets.ModelViewSet):
-    """"""
+    """Manage passenger actions in database"""
     queryset = User.objects.filter(user_type=2)
     serializer_class = UserSerializer
     permission_classes = [IsPassengerOrAdmin]
@@ -43,11 +43,11 @@ class PassengerViewSet(viewsets.ModelViewSet):
         permission_classes=[~permissions.IsAuthenticated]
     )
     def login(self, request):
-        """"""
+        """Manage login passenger"""
         return login_by_user_type(self, request, PassengerLoginSerializer)
 
     def create(self, request):
-        """"""
+        """Manage creation of passenger"""
         return register_by_user_type(
             self,
             request,
@@ -56,7 +56,7 @@ class PassengerViewSet(viewsets.ModelViewSet):
 
 
 class DriverViewSet(viewsets.ModelViewSet):
-    """"""
+    """Manage driver actions in database"""
     queryset = User.objects.filter(user_type=3)
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated, IsDriverOrAdmin]
@@ -67,16 +67,16 @@ class DriverViewSet(viewsets.ModelViewSet):
         permission_classes=[~permissions.IsAuthenticated]
     )
     def login(self, request):
-        """"""
+        """Manage login driver"""
         return login_by_user_type(self, request, DriverLoginSerializer)
 
     def create(self, request):
-        """"""
+        """Manage creation driver"""
         return register_by_user_type(self, request, DriverRegisterSerializer)
 
 
 class AdminViewSet(viewsets.GenericViewSet):
-    """"""
+    """Manage admin actions in database"""
     queryset = User.objects.filter(user_type=1)
     serializer_class = UserSerializer
 
@@ -86,5 +86,5 @@ class AdminViewSet(viewsets.GenericViewSet):
         permission_classes=[~permissions.IsAuthenticated]
     )
     def login(self, request):
-        """"""
+        """Manage login admin"""
         return login_by_user_type(self, request, AdminLoginSerializer)

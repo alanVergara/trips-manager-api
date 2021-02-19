@@ -27,7 +27,7 @@ class BusSerializer(serializers.ModelSerializer):
         read_only_fields = ('id', 'seats_bus',)
 
     def create(self, data):
-        """"""
+        """Custom creation function, added seats related bus in creation"""
         bus = models.Bus.objects.create(**data)
         user = data.get('created_by')
         for index in range(1, 11):
@@ -70,7 +70,7 @@ class TripSerializer(serializers.ModelSerializer):
         read_only_fields = ('id', 'tickets_trip',)
 
     def create(self, data):
-        """"""
+        """Custom creation function, added tickets related trip in creation"""
         trip = models.Trip.objects.create(**data)
         bus = data.get('bus')
         user = data.get('created_by')

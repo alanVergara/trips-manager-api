@@ -10,7 +10,7 @@ from trip.permissions import IsAdminRoute, IsAdminBus, \
 
 
 def add_passenger_average(route):
-    """"""
+    """Complementary function for get average of passengers in route"""
     average = 0
     route_quantity = models.Trip.objects.filter(
         route__id=route.get('id')
@@ -26,7 +26,7 @@ def add_passenger_average(route):
 
 
 def percentage_buses_use_by_route(bus, route_id, percentage):
-    """"""
+    """Complementary function for get percentage of usage buses"""
     buses = []
     pctage = models.Trip.objects.filter(
         bus__id=bus.get('id'),
@@ -48,7 +48,7 @@ def percentage_buses_use_by_route(bus, route_id, percentage):
 
 
 class RouteViewSet(viewsets.ModelViewSet):
-    """"""
+    """Manage route actions in database"""
     queryset = models.Route.objects.all()
     serializer_class = serializers.RouteSerializer
     permission_classes = [IsAdminRoute]
@@ -58,7 +58,7 @@ class RouteViewSet(viewsets.ModelViewSet):
 
     @action(methods=['get'], detail=False, permission_classes=[IsAdminProfile])
     def average_passengers(self, request):
-        """"""
+        """Getting average passengers"""
         data = []
         serializer = self.serializer_class(self.queryset, many=True)
         for route in serializer.data:
@@ -68,7 +68,7 @@ class RouteViewSet(viewsets.ModelViewSet):
 
 
 class BusViewSet(viewsets.ModelViewSet):
-    """"""
+    """Manage bus actions in database"""
     queryset = models.Bus.objects.all()
     serializer_class = serializers.BusSerializer
     permission_classes = [IsAdminBus]
@@ -78,7 +78,7 @@ class BusViewSet(viewsets.ModelViewSet):
 
     @action(methods=['get'], detail=False, permission_classes=[IsAdminProfile])
     def use_by_route(self, request):
-        """"""
+        """Getting use percentage of route"""
         data = []
         route_id = request.query_params.get('route_id')
         percentage = request.query_params.get('percentage')
@@ -95,14 +95,14 @@ class BusViewSet(viewsets.ModelViewSet):
 
 
 class SeatViewSet(viewsets.ModelViewSet):
-    """"""
+    """Manage seat actions in database"""
     queryset = models.Seat.objects.all()
     serializer_class = serializers.SeatSerializer
     permission_classes = [IsPassengerTicket]
 
 
 class TripViewSet(viewsets.ModelViewSet):
-    """"""
+    """Manage trip actions in database"""
     queryset = models.Trip.objects.all()
     serializer_class = serializers.TripSerializer
     permission_classes = [IsAdminRoute]
@@ -112,7 +112,7 @@ class TripViewSet(viewsets.ModelViewSet):
 
 
 class TicketViewSet(viewsets.ModelViewSet):
-    """"""
+    """Manage ticket actions in database"""
     queryset = models.Ticket.objects.all()
     serializer_class = serializers.TicketSerializer
     permission_classes = [IsPassengerTicket]

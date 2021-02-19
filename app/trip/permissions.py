@@ -2,7 +2,7 @@ from rest_framework import permissions
 
 
 class IsAdminRoute(permissions.BasePermission):
-    """"""
+    """Permission for actions in route view"""
     def has_permission(self, request, view):
         admin_type = 1
         actions_admin = ['create', 'update', 'partial_update', 'destroy']
@@ -15,7 +15,7 @@ class IsAdminRoute(permissions.BasePermission):
 
 
 class IsAdminBus(permissions.BasePermission):
-    """"""
+    """Permission for actions in bus view"""
     def has_permission(self, request, view):
         admin_type = 1
         actions_admin = [
@@ -31,7 +31,7 @@ class IsAdminBus(permissions.BasePermission):
 
 
 class IsPassengerTicket(permissions.BasePermission):
-    """"""
+    """Permission for actions in ticket view"""
     def has_permission(self, request, view):
         passenger_type = 2
         actions_passenger = ['list', 'retrieve', 'update', 'partial_update']
@@ -43,7 +43,7 @@ class IsPassengerTicket(permissions.BasePermission):
             return False
 
     def has_object_permission(self, request, view, obj):
-        """"""
+        """Verification for specific instance actions"""
         actions_free = ['list', 'retrieve']
         actions_passenger = ['update', 'partial_update']
 
@@ -55,7 +55,7 @@ class IsPassengerTicket(permissions.BasePermission):
 
 
 class IsAdminProfile(permissions.BasePermission):
-    """"""
+    """Permission for actions with admin perfil"""
     def has_permission(self, request, view):
         admin_type = 1
         return (request.user.is_authenticated and

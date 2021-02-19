@@ -6,7 +6,7 @@ from main.models import User
 
 
 def validate_register_user(self, data, usert_type):
-    """Generic function for validate by user type"""
+    """Generic function for validate register by user type"""
     password = data.get('password')
     password_confirm = data.get('password_confirm')
     username = data.get('username')
@@ -24,7 +24,7 @@ def validate_register_user(self, data, usert_type):
 
 
 def create_register_user(self, data, user_type):
-    """"""
+    """Generic function for creating user by user type"""
     data.pop('password_confirm')
     data['user_type'] = user_type
     user = User.objects.create_user(**data)
@@ -32,7 +32,7 @@ def create_register_user(self, data, user_type):
 
 
 def validate_login_user(self, data, user_type):
-    """"""
+    """Generic function for validate login by user type"""
     username = data.get('username')
     password = data.get('password')
     user = authenticate(username=username, password=password)
@@ -46,7 +46,7 @@ def validate_login_user(self, data, user_type):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    """"""
+    """Serializer for User object"""
     class Meta:
         model = User
         fields = ('id', 'username', 'password', 'user_type',)
@@ -66,82 +66,82 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class PassengerLoginSerializer(serializers.Serializer):
-    """"""
+    """Serializer for passenger login"""
     username = serializers.CharField(min_length=3, max_length=64)
     password = serializers.CharField(min_length=8, max_length=64)
 
     def validate(self, data):
-        """"""
+        """Validate login data"""
         user_type = 2
         return validate_login_user(self, data, user_type)
 
     def create(self, data):
-        """"""
+        """Token creation"""
         token, created = Token.objects.get_or_create(user=data['user'])
         return data['user'], token.key
 
 
 class PassengerRegisterSerializer(serializers.Serializer):
-    """"""
+    """Serializer for register passenger"""
     username = serializers.CharField(min_length=3, max_length=64)
     password = serializers.CharField(min_length=8, max_length=64)
     password_confirm = serializers.CharField(min_length=8, max_length=64)
 
     def validate(self, data):
-        """"""
+        """Validate register passenger"""
         user_type = 2
         return validate_register_user(self, data, user_type)
 
     def create(self, data):
-        """"""
+        """Creation new passenger"""
         user_type = 2
         return create_register_user(self, data, user_type)
 
 
 class DriverLoginSerializer(serializers.Serializer):
-    """"""
+    """Serializer for driver login"""
     username = serializers.CharField(min_length=3, max_length=64)
     password = serializers.CharField(min_length=8, max_length=64)
 
     def validate(self, data):
-        """"""
+        """Validate login data user"""
         user_type = 3
         return validate_login_user(self, data, user_type)
 
     def create(self, data):
-        """"""
+        """Token creation"""
         token, created = Token.objects.get_or_create(user=data['user'])
         return data['user'], token.key
 
 
 class DriverRegisterSerializer(serializers.Serializer):
-    """"""
+    """Serializer for register driver"""
     username = serializers.CharField(min_length=3, max_length=64)
     password = serializers.CharField(min_length=8, max_length=64)
     password_confirm = serializers.CharField(min_length=8, max_length=64)
 
     def validate(self, data):
-        """"""
+        """Validate driver register data"""
         user_type = 3
         return validate_register_user(self, data, user_type)
 
     def create(self, data):
-        """"""
+        """Creation new driver"""
         user_type = 3
         return create_register_user(self, data, user_type)
 
 
 class AdminLoginSerializer(serializers.Serializer):
-    """"""
+    """Serializer for admin login"""
     username = serializers.CharField(min_length=3, max_length=64)
     password = serializers.CharField(min_length=8, max_length=64)
 
     def validate(self, data):
-        """"""
+        """Validate login data"""
         user_type = 1
         return validate_login_user(self, data, user_type)
 
     def create(self, data):
-        """"""
+        """Token creation"""
         token, created = Token.objects.get_or_create(user=data['user'])
         return data['user'], token.key
