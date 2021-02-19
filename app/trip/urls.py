@@ -10,6 +10,8 @@ router.register(r'seats', views.SeatViewSet)
 router.register(r'trips', views.TripViewSet)
 router.register(r'tickets', views.TicketViewSet)
 
+app_name = 'trip'
+
 urlpatterns = [
     path('', include(router.urls)),
 ]
