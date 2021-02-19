@@ -11,6 +11,7 @@ from trip.serializers import TicketSerializer
 
 TICKETS_URL = reverse('trip:ticket-list')
 
+
 class PublicTicketTest(TestCase):
     """Tests public available tickets requests"""
 
@@ -32,7 +33,7 @@ class PublicTicketTest(TestCase):
         """Test login is required to create new ticket"""
         payload = {
             'seat': 1,
-            'passenger': 1, 
+            'passenger': 1,
             'trip': 1
         }
 
@@ -43,7 +44,7 @@ class PublicTicketTest(TestCase):
         """Test login is required to edit a ticket"""
         payload = {
             'seat': 1,
-            'passenger': 1, 
+            'passenger': 1,
             'trip': 1
         }
 
@@ -77,7 +78,7 @@ class PrivateTicketTest(TestCase):
             user_type=2,
         )
         self.route_test = Route.objects.create(
-            name='route-test', 
+            name='route-test',
             origin='origin-test',
             destination='destination-test',
             created_by=self.user_admin
@@ -101,12 +102,12 @@ class PrivateTicketTest(TestCase):
 
     def test_ticket_list_by_passenger(self):
         """Test logged passenger access to list ticket"""
-        ticket_test_1 = Ticket.objects.create(
+        Ticket.objects.create(
             created_by=self.user_admin,
             trip=self.trip_test,
             seat=self.seat_test
         )
-        ticket_test_2 = Ticket.objects.create(
+        Ticket.objects.create(
             created_by=self.user_admin,
             trip=self.trip_test,
             seat=self.seat_test
@@ -164,7 +165,7 @@ class PrivateTicketTest(TestCase):
         """Test logged passenger access to create ticket"""
         payload = {
             'seat': 1,
-            'passenger': 1, 
+            'passenger': 1,
             'trip': 1
         }
 
@@ -176,7 +177,7 @@ class PrivateTicketTest(TestCase):
         """Test logged driver access to create ticket"""
         payload = {
             'seat': 1,
-            'passenger': 1, 
+            'passenger': 1,
             'trip': 1
         }
 
@@ -188,7 +189,7 @@ class PrivateTicketTest(TestCase):
         """Test logged admin access to create ticket"""
         payload = {
             'seat': 1,
-            'passenger': 1, 
+            'passenger': 1,
             'trip': 1
         }
 

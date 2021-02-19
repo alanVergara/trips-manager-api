@@ -1,12 +1,12 @@
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
-from rest_framework import permissions
-from django.db.models import Q, F, Count
+from django.db.models import Q, Count
 
 from main import models
 from trip import serializers
-from trip.permissions import IsAdminRoute, IsAdminBus, IsPassengerTicket, IsAdminProfile
+from trip.permissions import IsAdminRoute, IsAdminBus, \
+                            IsPassengerTicket, IsAdminProfile
 
 
 def add_passenger_average(route):
@@ -24,6 +24,7 @@ def add_passenger_average(route):
     route['average'] = round(average, 4)
     return route
 
+
 def percentage_buses_use_by_route(bus, route_id, percentage):
     """"""
     buses = []
@@ -31,7 +32,10 @@ def percentage_buses_use_by_route(bus, route_id, percentage):
         bus__id=bus.get('id'),
         route__id=route_id
     ).annotate(
-        pctage = Count('tickets_trip', filter=Q(tickets_trip__reserved=True)) * 100 / Count('tickets_trip')
+        pctage=Count(
+            'tickets_trip',
+            filter=Q(tickets_trip__reserved=True)
+        ) * 100/Count('tickets_trip')
     ).filter(
         pctage__gt=percentage
     )
@@ -71,7 +75,7 @@ class BusViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)
-    
+
     @action(methods=['get'], detail=False, permission_classes=[IsAdminProfile])
     def use_by_route(self, request):
         """"""
@@ -80,7 +84,11 @@ class BusViewSet(viewsets.ModelViewSet):
         percentage = request.query_params.get('percentage')
         serializer = self.serializer_class(self.queryset, many=True)
         for bus in serializer.data:
-            tmp_buses = percentage_buses_use_by_route(bus, route_id, percentage)
+            tmp_buses = percentage_buses_use_by_route(
+                bus,
+                route_id,
+                percentage
+            )
             data = data + tmp_buses
 
         return Response(data, status=status.HTTP_200_OK)

@@ -1,6 +1,5 @@
 from django.urls import reverse
 from django.test import TestCase
-from django.utils import timezone
 
 from rest_framework import status
 from rest_framework.test import APIClient
@@ -81,12 +80,12 @@ class PrivateSeatTest(TestCase):
 
     def test_seat_list_by_passenger(self):
         """Test logged passenger access to list seat"""
-        seat_test_1 = Seat.objects.create(
+        Seat.objects.create(
             created_by=self.user_admin,
             number=1,
             bus=self.bus_test
         )
-        seat_test_2 = Seat.objects.create(
+        Seat.objects.create(
             created_by=self.user_admin,
             number=2,
             bus=self.bus_test

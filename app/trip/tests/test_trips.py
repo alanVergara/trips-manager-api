@@ -23,7 +23,7 @@ class PublicTripTest(TestCase):
             user_type=1,
         )
         self.route_test = Route.objects.create(
-            name='route-test', 
+            name='route-test',
             origin='origin-test',
             destination='destination-test',
             created_by=self.user_admin
@@ -59,9 +59,9 @@ class PublicTripTest(TestCase):
     def test_login_required_trip_create(self):
         """Test login is required to create new trip"""
         payload = {
-            'name': 'triptest', 
+            'name': 'triptest',
             'begin_at': '2021-01-01T10:00:00',
-            'route': 1, 
+            'route': 1,
             'bus': 1
         }
 
@@ -71,15 +71,15 @@ class PublicTripTest(TestCase):
     def test_login_required_trip_update(self):
         """Test login is required to edit a trip"""
         payload = {
-            'name': 'triptestupdated', 
+            'name': 'triptestupdated',
             'begin_at': '2021-01-01T10:00:00',
-            'route': 1, 
+            'route': 1,
             'bus': 1
         }
 
         response = self.client.put(TRIPS_URL+'1/', payload)
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
-    
+
     def test_login_required_trip_delete(self):
         """Test login is required to delete a trip"""
         response = self.client.delete(TRIPS_URL+'1/')
@@ -107,7 +107,7 @@ class PrivateTripTest(TestCase):
             user_type=2,
         )
         self.route_test = Route.objects.create(
-            name='route-test', 
+            name='route-test',
             origin='origin-test',
             destination='destination-test',
             created_by=self.user_admin
@@ -119,14 +119,14 @@ class PrivateTripTest(TestCase):
 
     def test_trip_list_by_passenger(self):
         """Test logged passenger access to list trip"""
-        trip_test_1 = Trip.objects.create(
+        Trip.objects.create(
             name='trip-test-1',
             begin_at=timezone.now(),
             created_by=self.user_admin,
             route=self.route_test,
             bus=self.bus_test
         )
-        trip_test_2 = Trip.objects.create(
+        Trip.objects.create(
             name='trip-test-2',
             begin_at=timezone.now(),
             created_by=self.user_admin,
@@ -145,14 +145,14 @@ class PrivateTripTest(TestCase):
 
     def test_trip_list_by_driver(self):
         """Test logged driver access to list trip"""
-        trip_test_1 = Trip.objects.create(
+        Trip.objects.create(
             name='trip-test-1',
             begin_at=timezone.now(),
             created_by=self.user_admin,
             route=self.route_test,
             bus=self.bus_test
         )
-        trip_test_2 = Trip.objects.create(
+        Trip.objects.create(
             name='trip-test-2',
             begin_at=timezone.now(),
             created_by=self.user_admin,
@@ -171,14 +171,14 @@ class PrivateTripTest(TestCase):
 
     def test_trip_list_by_admin(self):
         """Test logged admin access to list trip"""
-        trip_test_1 = Trip.objects.create(
+        Trip.objects.create(
             name='trip-test-1',
             begin_at=timezone.now(),
             created_by=self.user_admin,
             route=self.route_test,
             bus=self.bus_test
         )
-        trip_test_2 = Trip.objects.create(
+        Trip.objects.create(
             name='trip-test-2',
             begin_at=timezone.now(),
             created_by=self.user_admin,
@@ -243,9 +243,9 @@ class PrivateTripTest(TestCase):
     def test_trip_create_by_passenger(self):
         """Test logged passenger access to create trip"""
         payload = {
-            'name': 'triptest', 
+            'name': 'triptest',
             'begin_at': '2021-01-01T10:00:00',
-            'route': self.route_test.id, 
+            'route': self.route_test.id,
             'bus': self.bus_test.id,
             'created_by': self.user_passenger
         }
@@ -257,9 +257,9 @@ class PrivateTripTest(TestCase):
     def test_trip_create_by_driver(self):
         """Test logged driver access to create trip"""
         payload = {
-            'name': 'triptest', 
+            'name': 'triptest',
             'begin_at': '2021-01-01T10:00:00',
-            'route': self.route_test.id, 
+            'route': self.route_test.id,
             'bus': self.bus_test.id,
             'created_by': self.user_driver
         }
@@ -271,9 +271,9 @@ class PrivateTripTest(TestCase):
     def test_trip_create_by_admin(self):
         """Test logged admin access to create correctly trip"""
         payload = {
-            'name': 'triptest', 
+            'name': 'triptest',
             'begin_at': '2021-01-01T10:00:00',
-            'route': self.route_test.id, 
+            'route': self.route_test.id,
             'bus': self.bus_test.id,
             'created_by': self.user_admin
         }
@@ -281,13 +281,13 @@ class PrivateTripTest(TestCase):
         self.client.force_authenticate(self.user_admin)
         response = self.client.post(TRIPS_URL, payload)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-    
+
     def test_invalid_trip_create_by_admin(self):
         """Test logged admin access to create invalid trip"""
         payload = {
-            'name': '', 
+            'name': '',
             'begin_at': '',
-            'route': -1, 
+            'route': -1,
             'bus': -1,
             'created_by': self.user_admin
         }
@@ -299,9 +299,9 @@ class PrivateTripTest(TestCase):
     def test_trip_update_by_passenger(self):
         """Test logged passenger access to update trip"""
         payload = {
-            'name': 'triptestupdated', 
+            'name': 'triptestupdated',
             'begin_at': '2021-01-01T10:00:00',
-            'route': 1, 
+            'route': 1,
             'bus': 1
         }
 
@@ -312,9 +312,9 @@ class PrivateTripTest(TestCase):
     def test_trip_update_by_driver(self):
         """Test logged driver access to update trip"""
         payload = {
-            'name': 'triptestupdated', 
+            'name': 'triptestupdated',
             'begin_at': '2021-01-01T10:00:00',
-            'route': 1, 
+            'route': 1,
             'bus': 1
         }
 
@@ -333,9 +333,9 @@ class PrivateTripTest(TestCase):
         )
 
         payload = {
-            'name': 'triptestupdated', 
+            'name': 'triptestupdated',
             'begin_at': '2021-01-01T10:00:00',
-            'route': 1, 
+            'route': 1,
             'bus': 1
         }
 
@@ -355,9 +355,9 @@ class PrivateTripTest(TestCase):
         )
 
         payload = {
-            'name': '', 
+            'name': '',
             'begin_at': '',
-            'route': '', 
+            'route': '',
             'bus': ''
         }
 

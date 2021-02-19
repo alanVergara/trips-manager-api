@@ -1,6 +1,5 @@
 from django.urls import reverse
 from django.test import TestCase
-from django.utils import timezone
 
 from rest_framework import status
 from rest_framework.test import APIClient
@@ -49,7 +48,7 @@ class PublicRouteTest(TestCase):
         """Test login is required to create new route"""
         payload = {
             'name': 'routetest',
-            'origin': 'test-origin', 
+            'origin': 'test-origin',
             'destination': 'test-destination'
         }
 
@@ -59,8 +58,8 @@ class PublicRouteTest(TestCase):
     def test_login_required_route_update(self):
         """Test login is required to edit a route"""
         payload = {
-            'name': 'rote-updated', 
-            'origin': 'test-origin', 
+            'name': 'rote-updated',
+            'origin': 'test-origin',
             'destination': 'test-destination'
         }
 
@@ -96,13 +95,13 @@ class PrivateRouteTest(TestCase):
 
     def test_route_list_by_passenger(self):
         """Test logged passenger access to list route"""
-        route_test_1 = Route.objects.create(
+        Route.objects.create(
             name='route-test-1',
             created_by=self.user_admin,
             origin='origin-test',
             destination='destination-test'
         )
-        route_test_2 = Route.objects.create(
+        Route.objects.create(
             name='route-test-2',
             created_by=self.user_admin,
             origin='origin-test',
@@ -120,13 +119,13 @@ class PrivateRouteTest(TestCase):
 
     def test_route_list_by_driver(self):
         """Test logged driver access to list route"""
-        route_test_1 = Route.objects.create(
+        Route.objects.create(
             name='route-test-1',
             created_by=self.user_admin,
             origin='origin-test',
             destination='destination-test'
         )
-        route_test_2 = Route.objects.create(
+        Route.objects.create(
             name='route-test-2',
             created_by=self.user_admin,
             origin='origin-test',
@@ -144,13 +143,13 @@ class PrivateRouteTest(TestCase):
 
     def test_route_list_by_admin(self):
         """Test logged admin access to list route"""
-        route_test_1 = Route.objects.create(
+        Route.objects.create(
             name='route-test-1',
             created_by=self.user_admin,
             origin='origin-test',
             destination='destination-test'
         )
-        route_test_2 = Route.objects.create(
+        Route.objects.create(
             name='route-test-2',
             created_by=self.user_admin,
             origin='origin-test',
@@ -212,7 +211,7 @@ class PrivateRouteTest(TestCase):
         """Test logged passenger access to create route"""
         payload = {
             'name': 'routetest',
-            'origin': 'test-origin', 
+            'origin': 'test-origin',
             'destination': 'test-destination'
         }
 
@@ -224,7 +223,7 @@ class PrivateRouteTest(TestCase):
         """Test logged driver access to create route"""
         payload = {
             'name': 'routetest',
-            'origin': 'test-origin', 
+            'origin': 'test-origin',
             'destination': 'test-destination'
         }
 
@@ -236,7 +235,7 @@ class PrivateRouteTest(TestCase):
         """Test logged admin access to create route"""
         payload = {
             'name': 'routetest',
-            'origin': 'test-origin', 
+            'origin': 'test-origin',
             'destination': 'test-destination'
         }
 
@@ -245,22 +244,22 @@ class PrivateRouteTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_invalid_route_create_by_admin(self):
-            """Test logged admin access to create invalid route"""
-            payload = {
-                'name': '',
-                'origin': -1, 
-                'destination': -1
-            }
+        """Test logged admin access to create invalid route"""
+        payload = {
+            'name': '',
+            'origin': -1,
+            'destination': -1
+        }
 
-            self.client.force_authenticate(self.user_admin)
-            response = self.client.post(ROUTES_URL, payload)
-            self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.client.force_authenticate(self.user_admin)
+        response = self.client.post(ROUTES_URL, payload)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_route_update_by_passenger(self):
         """Test logged passenger access to update route"""
         payload = {
-            'name': 'rote-updated', 
-            'origin': 'test-origin', 
+            'name': 'rote-updated',
+            'origin': 'test-origin',
             'destination': 'test-destination'
         }
 
@@ -271,8 +270,8 @@ class PrivateRouteTest(TestCase):
     def test_route_update_by_driver(self):
         """Test logged driver access to update driver"""
         payload = {
-            'name': 'rote-updated', 
-            'origin': 'test-origin', 
+            'name': 'rote-updated',
+            'origin': 'test-origin',
             'destination': 'test-destination'
         }
 
@@ -290,8 +289,8 @@ class PrivateRouteTest(TestCase):
         )
 
         payload = {
-            'name': 'rote-updated', 
-            'origin': 'test-origin', 
+            'name': 'rote-updated',
+            'origin': 'test-origin',
             'destination': 'test-destination'
         }
 
@@ -310,8 +309,8 @@ class PrivateRouteTest(TestCase):
         )
 
         payload = {
-            'name': '', 
-            'origin': -1, 
+            'name': '',
+            'origin': -1,
             'destination': -1
         }
 

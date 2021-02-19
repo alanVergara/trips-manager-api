@@ -1,7 +1,6 @@
 from django.contrib.auth import password_validation, authenticate
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
-from rest_framework.validators import UniqueValidator
 
 from main.models import User
 
@@ -23,12 +22,14 @@ def validate_register_user(self, data, usert_type):
 
     return data
 
+
 def create_register_user(self, data, user_type):
     """"""
     data.pop('password_confirm')
     data['user_type'] = user_type
     user = User.objects.create_user(**data)
     return user
+
 
 def validate_login_user(self, data, user_type):
     """"""
@@ -37,7 +38,7 @@ def validate_login_user(self, data, user_type):
     user = authenticate(username=username, password=password)
     message = 'El usuario o contraseña es incorrecto.'
 
-    if not user:    
+    if not user:
         raise serializers.ValidationError(message)
     data['user'] = user
 
@@ -51,7 +52,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('id', 'username', 'password', 'user_type',)
         read_only_fields = ('user_type', 'id',)
         extra_kwargs = {'password': {'write_only': True}}
-    
+
     def update(self, instance, data):
         """Update a user, setting the password"""
         password = data.pop('password', None)

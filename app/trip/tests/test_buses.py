@@ -1,6 +1,5 @@
 from django.urls import reverse
 from django.test import TestCase
-from django.utils import timezone
 
 from rest_framework import status
 from rest_framework.test import APIClient
@@ -51,7 +50,7 @@ class PublicBusTest(TestCase):
     def test_login_required_bus_update(self):
         """Test login is required to edit a bus"""
         payload = {
-            'num_plate': 'NNNN11-updated', 
+            'num_plate': 'NNNN11-updated',
         }
 
         response = self.client.put(BUSES_URL+'1/', payload)
@@ -61,6 +60,7 @@ class PublicBusTest(TestCase):
         """Test login is required to delete a bus"""
         response = self.client.delete(BUSES_URL+'1/')
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
 
 class PrivateBusTest(TestCase):
     """Test available bus request by logged user"""
@@ -97,11 +97,11 @@ class PrivateBusTest(TestCase):
 
     def test_bus_list_by_admin(self):
         """Test logged admin access to list bus"""
-        bus_test_1 = Bus.objects.create(
+        Bus.objects.create(
             num_plate='NNNN11-test-1',
             created_by=self.user_admin,
         )
-        bus_test_1 = Bus.objects.create(
+        Bus.objects.create(
             num_plate='NNNN11-test-2',
             created_by=self.user_admin,
         )

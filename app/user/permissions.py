@@ -22,7 +22,8 @@ class IsPassengerOrAdmin(permissions.BasePermission):
 
         if view.action in actions_free:
             return True
-        elif view.action in actions_passenger and request.user.is_authenticated:
+        elif (view.action in actions_passenger and
+                request.user.is_authenticated):
             return obj == request.user
 
 

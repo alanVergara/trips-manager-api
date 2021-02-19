@@ -8,7 +8,8 @@ class IsAdminRoute(permissions.BasePermission):
         actions_admin = ['create', 'update', 'partial_update', 'destroy']
 
         if view.action in actions_admin:
-            return (request.user.is_authenticated and request.user.user_type == admin_type)
+            return (request.user.is_authenticated and
+                    request.user.user_type == admin_type)
         else:
             return True
 
@@ -17,10 +18,14 @@ class IsAdminBus(permissions.BasePermission):
     """"""
     def has_permission(self, request, view):
         admin_type = 1
-        actions_admin = ['create', 'list', 'update', 'partial_update', 'destroy']
+        actions_admin = [
+            'create', 'list', 'update',
+            'partial_update', 'destroy'
+        ]
 
         if view.action in actions_admin:
-            return (request.user.is_authenticated and request.user.user_type == admin_type)
+            return (request.user.is_authenticated and
+                    request.user.user_type == admin_type)
         else:
             return True
 
@@ -29,10 +34,11 @@ class IsPassengerTicket(permissions.BasePermission):
     """"""
     def has_permission(self, request, view):
         passenger_type = 2
-        actions_passenger = ['list','retrieve', 'update', 'partial_update']
+        actions_passenger = ['list', 'retrieve', 'update', 'partial_update']
 
         if view.action in actions_passenger:
-            return (request.user.is_authenticated and request.user.user_type == passenger_type)
+            return (request.user.is_authenticated and
+                    request.user.user_type == passenger_type)
         else:
             return False
 
@@ -43,7 +49,8 @@ class IsPassengerTicket(permissions.BasePermission):
 
         if view.action in actions_free:
             return True
-        elif view.action in actions_passenger and request.user.is_authenticated:
+        elif (view.action in actions_passenger and
+                request.user.is_authenticated):
             return obj.passenger is None
 
 
@@ -51,4 +58,5 @@ class IsAdminProfile(permissions.BasePermission):
     """"""
     def has_permission(self, request, view):
         admin_type = 1
-        return (request.user.is_authenticated and request.user.user_type == admin_type)
+        return (request.user.is_authenticated and
+                request.user.user_type == admin_type)
