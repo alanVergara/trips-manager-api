@@ -87,7 +87,7 @@ class PublicTripTest(TestCase):
 
 
 class PrivateTripTest(TestCase):
-    """Test available trip request by loged user"""
+    """Test available trip request by logged user"""
 
     def setUp(self):
         self.client = APIClient()
@@ -142,7 +142,7 @@ class PrivateTripTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, serializer.data)
         self.assertEqual(len(response.data), 2)
-    
+
     def test_trip_list_by_driver(self):
         """Test logged driver access to list trip"""
         trip_test_1 = Trip.objects.create(
@@ -194,7 +194,7 @@ class PrivateTripTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, serializer.data)
         self.assertEqual(len(response.data), 2)
-    
+
     def test_trip_detail_by_passenger(self):
         """Test logged passenger access to detail trip"""
         trip_test_1 = Trip.objects.create(

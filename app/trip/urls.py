@@ -4,7 +4,7 @@ from trip import views
 
 
 router = DefaultRouter()
-router.register(r'routes', views.RouterViewSet)
+router.register(r'routes', views.RouteViewSet)
 router.register(r'buses', views.BusViewSet)
 router.register(r'seats', views.SeatViewSet)
 router.register(r'trips', views.TripViewSet)

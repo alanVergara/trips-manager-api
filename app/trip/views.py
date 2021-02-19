@@ -43,7 +43,7 @@ def percentage_buses_use_by_route(bus, route_id, percentage):
     return buses
 
 
-class RouterViewSet(viewsets.ModelViewSet):
+class RouteViewSet(viewsets.ModelViewSet):
     """"""
     queryset = models.Route.objects.all()
     serializer_class = serializers.RouteSerializer
