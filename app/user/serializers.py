@@ -39,8 +39,6 @@ def validate_login_user(self, data, user_type):
 
     if not user:    
         raise serializers.ValidationError(message)
-    if user.user_type != user_type:
-        raise serializers.ValidationError(message)
     data['user'] = user
 
     return data
@@ -50,9 +48,20 @@ class UserSerializer(serializers.ModelSerializer):
     """"""
     class Meta:
         model = User
-        fields = ('username', 'password', 'user_type',)
-        read_only_fields = ('user_type',)
+        fields = ('id', 'username', 'password', 'user_type',)
+        read_only_fields = ('user_type', 'id',)
         extra_kwargs = {'password': {'write_only': True}}
+    
+    def update(self, instance, data):
+        """Update a user, setting the password"""
+        password = data.pop('password', None)
+        user = super().update(instance, data)
+
+        if password:
+            user.set_password(password)
+            user.save()
+
+        return user
 
 
 class PassengerLoginSerializer(serializers.Serializer):

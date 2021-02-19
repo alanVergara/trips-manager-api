@@ -19,7 +19,6 @@ class BusSerializer(serializers.ModelSerializer):
     seats_bus = serializers.PrimaryKeyRelatedField(
         many=True,
         read_only=True
-        #queryset=models.Seat.objects.all()
     )
 
     class Meta:
@@ -29,7 +28,6 @@ class BusSerializer(serializers.ModelSerializer):
 
     def create(self, data):
         """"""
-        data.pop('seats_bus')
         bus = models.Bus.objects.create(**data)
         user = data.get('created_by')
         for index in range(1, 11):

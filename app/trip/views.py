@@ -21,7 +21,7 @@ def add_passenger_average(route):
 
     if route_quantity > 0:
         average = route_passengers/route_quantity
-    route['average'] = average
+    route['average'] = round(average, 4)
     return route
 
 def percentage_buses_use_by_route(bus, route_id, percentage):
