@@ -11,7 +11,7 @@
 
 - Instalar Python (version 3.9.1) https://www.python.org/downloads/
 
-- Ingresar a directorio del proyecto descargado
+- Ingresar a la carpeta contenedora del proyecto descargado
     - cd <local-path>/trips-manager-api/
 
 - Instalar las dependencias presentes dentro del archivo requirements.txt con pip
@@ -23,6 +23,9 @@
 - Dentro de la carpeta "app" correr los siguientes comandos para generacion de tablas
     - python manage.py makemigrations main
     - python manage.py migrate
+
+- Crear un super usuario de administración para ver consola de usuarios y crear posteriormente si es necesario usurios con perfil de administrador para la aplicacion de front
+    - python manage.py createsuperuser
 
 - Ejecutar test
     - python manage.py test
@@ -59,6 +62,9 @@
 - Iniciar aplicación
     - npm run serve
 
+- La aplicación por defecto corre en el puerto 8080, para acceder dentro del navegador ingresar en:
+    http://localhost:8080/
+
 ## Funcionalidades y alcances
 
 - Se debe iniciar ambos proyectos para realizar una prueba integral
@@ -84,12 +90,12 @@
 
 - Permisos por tipo de usuario 
 
-    Funcionalidades usuarios sin iniciar sesión:
+    - Funcionalidades usuarios sin iniciar sesión:
         - Visualización de listado de viajes
         - Iniciar sesión
         - Registro de pasajeros 
 
-    Funcionalidades al iniciar sesión con cuenta Pasajero: 
+    - Funcionalidades al iniciar sesión con cuenta Pasajero: 
         - Visualización de listado de viajes
         - Opción de reserva de tickets dentro de listado de viajes
         - Visualizacion de pantalla de tickets con filtro por viaje
@@ -99,12 +105,12 @@
         - Editar datos de cuenta
         - Borrar su cuenta
     
-    Funcionalidades al iniciar sesión con cuenta Conductor:
+    - Funcionalidades al iniciar sesión con cuenta Conductor:
         - Visualizar listado de viajes
         - Editar datos de cuenta
         - Cerrar sesión
     
-    Funcionalidades al iniciar sesion con cuenta Administrador:
+    - Funcionalidades al iniciar sesion con cuenta Administrador:
         - CRUD Rutas
         - CRUD Buses
         - CRUD Viajes
