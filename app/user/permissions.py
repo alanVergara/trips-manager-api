@@ -41,6 +41,11 @@ class IsDriverOrAdmin(permissions.BasePermission):
 
     def has_object_permission(self, request, view, obj):
         """Verification for specific instance actions"""
+        admin_type = 1
         actions_driver = ['retrieve', 'update', 'partial_update']
+        actions_admin = ['destroy']
 
-        return (view.action in actions_driver and obj == request.user)
+        if view.action in actions_admin:
+            return request.user.user_type == admin_type
+        elif view.action in actions_driver:
+            return obj == request.user

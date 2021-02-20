@@ -24,7 +24,7 @@
     - python manage.py makemigrations main
     - python manage.py migrate
 
-- Crear un super usuario de administración para ver consola de usuarios y crear posteriormente si es necesario usurios con perfil de administrador para la aplicacion de front
+- Crear un super usuario de administración (En caso de ser necesario) para ver consola de usuarios y crear posteriormente si es necesario usurios con perfil de administrador para la aplicacion de front
     - python manage.py createsuperuser
 
 - Ejecutar test
@@ -65,7 +65,7 @@
 - La aplicación por defecto corre en el puerto 8080, para acceder dentro del navegador ingresar en:
     http://localhost:8080/
 
-## Funcionalidades y alcances
+## Funcionalidades, uso de plataforma y alcances 
 
 - Se debe iniciar ambos proyectos para realizar una prueba integral
 
