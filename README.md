@@ -7,9 +7,9 @@
 
 ## Instalación API (Backend)
 
-- Instalar pip https://pip.pypa.io/en/stable/installing/
-
 - Instalar Python (version 3.9.1) https://www.python.org/downloads/
+
+- Instalar pip https://pip.pypa.io/en/stable/installing/
 
 - Ingresar a la carpeta contenedora del proyecto descargado
     - cd <local-path>/trips-manager-api/
@@ -24,13 +24,13 @@
     - python manage.py makemigrations main
     - python manage.py migrate
 
-- Crear un super usuario de administración (En caso de ser necesario) para ver consola de usuarios y crear posteriormente si es necesario usurios con perfil de administrador para la aplicacion de front
+- Crear un super usuario de administración (En caso de ser necesario) para ver consola de usuarios y crear posteriormente si es necesario usurios con perfil de administrador para la aplicación de front
     - python manage.py createsuperuser
 
 - Ejecutar test
     - python manage.py test
 
-- Ejecutar test junto con flake8 para verificar tests y buenas practicas dentro del codigo
+- Ejecutar test junto con flake8 para verificar tests y buenas practicas dentro del código
     - python manage.py test && flake8
 
 - Iniciar servidor (por defecto es iniciado en http://127.0.0.1:8000/)
@@ -86,7 +86,7 @@
     - username: adminplataform
     - password: TS9p1a9s2s8TS
 
-- En caso de querer generar un nuevo usuario administrador, la unica manera es directamente a traves del modulo de administracion de la API y asignarle el rol de administrador
+- En caso de querer generar un nuevo usuario administrador, la única manera es directamente a través del módulo de administración de la API y asignarle el rol de administrador
 
 - Permisos por tipo de usuario 
 
@@ -98,7 +98,7 @@
     - Funcionalidades al iniciar sesión con cuenta Pasajero: 
         - Visualización de listado de viajes
         - Opción de reserva de tickets dentro de listado de viajes
-        - Visualizacion de pantalla de tickets con filtro por viaje
+        - Visualización de pantalla de tickets con filtro por viaje
         - Visualización de tickets disponibles por viaje
         - Reservar ticket 
         - Cerrar sesión
@@ -110,7 +110,7 @@
         - Editar datos de cuenta
         - Cerrar sesión
     
-    - Funcionalidades al iniciar sesion con cuenta Administrador:
+    - Funcionalidades al iniciar sesión con cuenta Administrador:
         - CRUD Rutas
         - CRUD Buses
         - CRUD Viajes
